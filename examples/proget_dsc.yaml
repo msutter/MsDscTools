@@ -1,0 +1,70 @@
+---
+# The type qualifier, [Key], on a property indicates that this property will
+# uniquely identify the resource instance. At least one [Key] property is
+# required.
+#
+# The [Required] qualifier indicates that the property is required. (a value
+# must be specified in any configuration script that uses this resource).
+#
+# The [write] qualifier indicates that this property is optional when using
+# the custom resource in a configuration script.
+#
+# The [read] qualifier indicates that a property cannot be set by a
+# configuration, and is for reporting purposes only.
+
+Modules:
+  - Name: scProget
+    Resources:
+    - Name: Proget_Feed
+      Properties:
+      - Name: Ensure
+        Type: String
+        Attribute: Write
+        ValidateSet:
+          - Present
+          - Absent
+        Description: Ensure Present or Absent
+      - Name: Name
+        Type: String
+        Attribute: Key
+        Description: Feed name
+      - Name: Api_Key
+        Type: String
+        Attribute: Required
+        Description: Proget Api Key
+      - Name: Type
+        Type: String
+        Attribute: Write
+        ValidateSet:
+          - Nuget
+          - Chocolatey
+        Description: Feed type (chocolatey/nuget)
+      - Name: Cache
+        Type: String
+        Attribute: Write
+        ValidateSet:
+          - Enable
+          - Disable
+        Description: Feed cache (enable/disable)
+    - Name: Proget_Connector
+      Properties:
+      - Name: Ensure
+        Type: String
+        Attribute: Write
+        ValidateSet:
+          - Present
+          - Absent
+        Description: Ensure Present or Absent
+      - Name: Name
+        Type: String
+        Attribute: Key
+        Description: Connector name
+      - Name: Feed_Name
+        Type: String
+        Attribute: Required
+        Description: Feed Name
+      - Name: Url
+        Type: String
+        Attribute: Required
+        Description: Connector url
+...
