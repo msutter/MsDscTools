@@ -15,105 +15,98 @@
 Modules:
   - Name: scProget
     Resources:
+      - Name: Proget_User
+        Properties:
+          - Name: Ensure
+            Type: String
+            Attribute: Required
+            ValidateSet:
+              - Present
+              - Absent
+            Description: Ensure Present or Absent
 
-    - Name: Proget_User
-      Properties:
-      - Name: Ensure
-        Type: String
-        Attribute: Write
-        ValidateSet:
-          - Present
-          - Absent
-        Description: Ensure Present or Absent
-      - Name: Name
-        Type: String
-        Attribute: Key
-        Description: Feed name
-      - Name: Password
-        Type: String
-        Attribute: Required
-        Description: User Password
+          - Name: Name
+            Type: String
+            Attribute: Key
+            Description: Feed name
 
-    - Name: Proget_Settings
-      Properties:
+          - Name: Password
+            Type: String
+            Attribute: Required
+            Description: User Password
 
-      - Name: ApiKey
-        Type: String
-        Attribute: Key
-        Description: Api Key
+      - Name: Proget_Settings
+        Properties:
 
-      - Name: Ensure
-        Type: String
-        Attribute: Write
-        ValidateSet:
-          - Present
-        Description: Ensure Present (absent makes no sense)
+          - Name: Key
+            Type: String
+            Attribute: Key
+            Description: Configuration Item key
 
-      - Name: LicenseKey
-        Type: String
-        Attribute: Write
-        Description: License Key
+          - Name: Ensure
+            Type: String
+            Attribute: Required
+            ValidateSet:
+              - Present
+              - Absent
+            Description: Ensure Present or Absent
 
-      - Name: ProxyHost
-        Type: String
-        Attribute: Write
-        Description: Proxy Host
+          - Name: Value
+            Type: String
+            Attribute: Write
+            Description: Configuration Item value
 
-      - Name: ProxyPort
-        Type: String
-        Attribute: Write
-        Description: Proxy Port
+      - Name: Proget_Feed
+        Properties:
+          - Name: Ensure
+            Type: String
+            Attribute: Write
+            ValidateSet:
+              - Present
+              - Absent
+            Description: Ensure Present or Absent
+          - Name: Name
+            Type: String
+            Attribute: Key
+            Description: Feed name
+          - Name: Api_Key
+            Type: String
+            Attribute: Required
+            Description: Proget Api Key
+          - Name: Type
+            Type: String
+            Attribute: Write
+            ValidateSet:
+              - Nuget
+              - Chocolatey
+            Description: Feed type (chocolatey/nuget)
+          - Name: Cache
+            Type: String
+            Attribute: Write
+            ValidateSet:
+              - Enable
+              - Disable
+            Description: Feed cache (enable/disable)
 
-    - Name: Proget_Feed
-      Properties:
-      - Name: Ensure
-        Type: String
-        Attribute: Write
-        ValidateSet:
-          - Present
-          - Absent
-        Description: Ensure Present or Absent
-      - Name: Name
-        Type: String
-        Attribute: Key
-        Description: Feed name
-      - Name: Api_Key
-        Type: String
-        Attribute: Required
-        Description: Proget Api Key
-      - Name: Type
-        Type: String
-        Attribute: Write
-        ValidateSet:
-          - Nuget
-          - Chocolatey
-        Description: Feed type (chocolatey/nuget)
-      - Name: Cache
-        Type: String
-        Attribute: Write
-        ValidateSet:
-          - Enable
-          - Disable
-        Description: Feed cache (enable/disable)
-    - Name: Proget_Connector
-      Properties:
-      - Name: Ensure
-        Type: String
-        Attribute: Write
-        ValidateSet:
-          - Present
-          - Absent
-        Description: Ensure Present or Absent
-      - Name: Name
-        Type: String
-        Attribute: Key
-        Description: Connector name
-      - Name: Feed_Name
-        Type: String
-        Attribute: Required
-        Description: Feed Name
-      - Name: Url
-        Type: String
-        Attribute: Required
-        Description: Connector url
+      - Name: Proget_Connector
+        Properties:
+          - Name: Ensure
+            Type: String
+            Attribute: Write
+            ValidateSet:
+              - Present
+              - Absent
+            Description: Ensure Present or Absent
+          - Name: Name
+            Type: String
+            Attribute: Key
+            Description: Connector name
+          - Name: Feed_Name
+            Type: String
+            Attribute: Required
+            Description: Feed Name
+          - Name: Url
+            Type: String
+            Attribute: Required
+            Description: Connector url
 ...

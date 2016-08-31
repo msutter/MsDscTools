@@ -50,9 +50,10 @@
           $DscProperty = New-xDscResourceProperty @property
           $DscProperties += $DscProperty
         }
-        if (Test-Path "${AbsOutputDirectory}"){
+        Write-Verbose "${AbsOutputDirectory}/$($Module.Name)/DSCResources/$($Resource.Name)"
+        if (Test-Path "${AbsOutputDirectory}/$($Module.Name)/DSCResources/$($Resource.Name)") {
           Write-Verbose "Updating $($Resource.Name)"
-          Update-xDscResource -Force –Path "${AbsOutputDirectory}\DSCResources\$($Resource.Name)" –Property $DscProperties
+          Update-xDscResource -Force –Path "${AbsOutputDirectory}/$($Module.Name)/DSCResources/$($Resource.Name)" –Property $DscProperties
         } else {
           Write-Verbose "Creating $($Resource.Name)"
           New-xDscResource –Name $Resource.Name –Property $DscProperties –Path $AbsOutputDirectory –ModuleName $Module.Name
