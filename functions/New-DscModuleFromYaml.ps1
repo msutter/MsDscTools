@@ -58,8 +58,13 @@
           Write-Verbose "Creating $($Resource.Name)"
           New-xDscResource –Name $Resource.Name –Property $DscProperties –Path $AbsOutputDirectory –ModuleName $Module.Name
         }
+        Update-DscHeader -ResourcePsm1ScriptPath "${AbsOutputDirectory}/$($Module.Name)/DSCResources/$($Resource.Name)/$($Resource.Name).psm1"
       }
-
+      Update-DSCResourceHelpersFunctions -DSCModulePath "${AbsOutputDirectory}/$($Module.Name)"
+      Write-Verbose "Copy DSC YAML definition in Module $($Resource.Name)"
+      if (!(Test-path "${AbsOutputDirectory}/$($Module.Name)/$($Module.Name).dsc.yml")) {
+        Copy-Item -Force $AbsYamlPath "${AbsOutputDirectory}/$($Module.Name)/$($Module.Name).dsc.yml"
+      }
     }
   }
 }

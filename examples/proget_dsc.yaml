@@ -56,8 +56,16 @@ Modules:
             Attribute: Write
             Description: Configuration Item value
 
-      - Name: Proget_Feed
+      - Name: Proget_Nuget_Feed
         Properties:
+          # Api_Key (String)
+          # Ensure (String)
+
+          - Name: Api_Key
+            Type: String
+            Attribute: Required
+            Description: Proget Api Key (General apikey, is different than the feeds one 'APIKey_Test')
+
           - Name: Ensure
             Type: String
             Attribute: Write
@@ -65,28 +73,83 @@ Modules:
               - Present
               - Absent
             Description: Ensure Present or Absent
-          - Name: Name
+
+          # Feed_Id (Int32)
+          # Feed_Name (String)
+          # Feed_Description (String)
+          # Active_Indicator (YNIndicator)
+          # Cache_Connectors_Indicator (YNIndicator)
+          # FeedPathOverride_Text (String)
+          # APIKey_Text (String)
+          # SymbolServerEnabled_Indicator (YNIndicator)
+          # PackageStoreConfiguration_Xml (String)
+          # FeedType_Name (String)
+          # StripSymbolFiles_Indicator (YNIndicator)
+          # DropPath_Text (String)
+
+          - Name: Feed_Id
+            Type: Uint32
+            Attribute: Write
+            Description: Feed id
+
+          - Name: Feed_Name
             Type: String
             Attribute: Key
             Description: Feed name
-          - Name: Api_Key
+
+          - Name: Feed_Description
             Type: String
-            Attribute: Required
-            Description: Proget Api Key
-          - Name: Type
+            Attribute: Write
+            Description: Feed description
+
+          - Name: Active_Indicator
+            Type: Boolean
+            Attribute: Write
+            Description: Active indicator
+
+          - Name: Cache_Connectors_Indicator
+            Type: Boolean
+            Attribute: Write
+            Description: When caching is enabled, a copy of every package requested from a connector is saved on the ProGet server. This enables better performance from subsequent requests, and also ensures that the package will be available even if the remote server goes down.
+
+          - Name: FeedPathOverride_Text
+            Type: String
+            Attribute: Write
+            Description: It is not recommended to override a single feed's storage location; doing so can greatly complicate administration and backup tasks. Also note that changing a feed's path will not move or copy any of the packages contained within it.
+
+          - Name: APIKey_Text
+            Type: String
+            Attribute: Write
+            Description: When a NuGet API key is set for a feed, that key will always be required to push packages, in addition to any other configured privileges. If an API key is not set and Windows authentication is not used, then users may authenticate using a special API key in the format [username]:[password].
+
+          - Name: SymbolServerEnabled_Indicator
+            Type: Boolean
+            Attribute: Write
+            Description: Enable symbol server
+
+          - Name: PackageStoreConfiguration_Xml
+            Type: String
+            Attribute: Write
+            Description: Feed Package store configuration
+
+          - Name: FeedType_Name
             Type: String
             Attribute: Write
             ValidateSet:
               - Nuget
               - Chocolatey
-            Description: Feed type (chocolatey/nuget)
-          - Name: Cache
+              - Powershell
+            Description: Feed type (chocolatey/nuget/powershell)
+
+          - Name: StripSymbolFiles_Indicator
+            Type: Boolean
+            Attribute: Write
+            Description: Enable strip symbol files
+
+          - Name: DropPath_Text
             Type: String
             Attribute: Write
-            ValidateSet:
-              - Enable
-              - Disable
-            Description: Feed cache (enable/disable)
+            Description: When specified, ProGet will periodically scan the feed's drop path for packages to import. Once successfully imported, each package is then deleted from the drop path. To use this feature, the ProGet service must have permission to read and write from the directory specified here.
 
       - Name: Proget_Connector
         Properties:
